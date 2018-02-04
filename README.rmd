@@ -1,0 +1,103 @@
+---
+author: "Gabriel Zanlorenssi"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Presidential Approval - Brazil
+
+Historical approval of Brazilian presidents. 
+
+Source: Datafolha. Complemented with IBOPE data in the first years of Sarney government when IBOPE asked the same question as Datafolha.
+
+Variables:
+
+* presidente: name of president.
+* year
+* day: last day that respondents were interviewed.
+* month: month that respondents were interviewed.
+* otimo_bom: percentage that evaluate the government as "ótimo" (very good) and "bom" (good).
+* regular: percentage that evaluate the government as "regular".
+* ruim: percentage that evaluate the government as "ruim" (bad) or "péssimo" (very bad).
+* nsabe: don't know.
+* na: missing.
+* insitituto: source.
+* pergunta: indicates that answers were for the popularity question (with categorical values instead of a binary approval variable yes/no).
+
+Last update: 02/18.
+
+# In R..
+
+## Open dataset
+
+```{r}
+aprovacao <- read.csv2("aprovacao.csv")
+```
+
+## Generating time variable
+
+```{r, message=F, warning=F}
+library(dplyr)
+
+aprovacao <- aprovacao %>% 
+  mutate(date = as.Date(paste(day, month, year, sep="/"), format = "%d/%m/%Y"))
+```
+
+## Good or very good
+
+```{r, message=F, warning=F}
+library(ggplot2)
+
+aprovacao %>% 
+  ggplot() +
+  geom_line(aes(x = date, y = otimo_bom, col = presidente)) +
+  scale_color_manual(values = c("#53868B", "#CD2626", "#0000EE", "#CDAD00", "#EE2C2C", "#8B6508", "#FFC125")) + 
+  theme_bw()
+```
+
+
+## Regular
+
+```{r, message=F, warning=F}
+library(ggplot2)
+
+aprovacao %>% 
+  ggplot() +
+  geom_line(aes(x = date, y = regular, col = presidente)) +
+  scale_color_manual(values = c("#53868B", "#CD2626", "#0000EE", "#CDAD00", "#EE2C2C", "#8B6508", "#FFC125")) + 
+  theme_bw()
+```
+
+## Bad or very bad
+
+```{r, message=F, warning=F}
+library(ggplot2)
+
+aprovacao %>% 
+  ggplot() +
+  geom_line(aes(x = date, y = ruim, col = presidente)) +
+  scale_color_manual(values = c("#53868B", "#CD2626", "#0000EE", "#CDAD00", "#EE2C2C", "#8B6508", "#FFC125")) + 
+  theme_bw()
+```
+
+## Score
+
+Using a score:
+
+* Score = good and very good + (regular * 0) - bad and very bad
+
+```{r, message=F, warning=F}
+library(ggplot2)
+
+aprovacao %>% 
+  mutate(score = otimo_bom - ruim) %>% 
+  ggplot() +
+  geom_line(aes(x = date, y = score, col = presidente)) +
+  scale_color_manual(values = c("#53868B", "#CD2626", "#0000EE", "#CDAD00", "#EE2C2C", "#8B6508", "#FFC125")) + 
+  geom_hline(yintercept =  0) + 
+  theme_bw()
+```
+
