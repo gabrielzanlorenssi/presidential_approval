@@ -92,12 +92,14 @@ Using a score:
 ```{r, message=F, warning=F}
 library(ggplot2)
 
-aprovacao %>% 
+plot <- aprovacao %>% 
   mutate(score = otimo_bom - ruim) %>% 
   ggplot() +
   geom_line(aes(x = date, y = score, col = presidente)) +
   scale_color_manual(values = c("#53868B", "#CD2626", "#0000EE", "#CDAD00", "#EE2C2C", "#8B6508", "#FFC125")) + 
   geom_hline(yintercept =  0) + 
   theme_bw()
+
+plot
 ```
 
