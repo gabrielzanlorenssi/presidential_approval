@@ -58,6 +58,8 @@ aprovacao %>%
   theme_bw()
 ```
 
+![](./png/png_1_pres.png)
+
 
 ## Regular
 
@@ -71,6 +73,8 @@ aprovacao %>%
   theme_bw()
 ```
 
+![](./png/png_2_pres.png)
+
 ## Bad or very bad
 
 ```{r, message=F, warning=F}
@@ -83,6 +87,8 @@ aprovacao %>%
   theme_bw()
 ```
 
+![](./png/png_3_pres.png)
+
 ## Score
 
 Using a score:
@@ -92,7 +98,7 @@ Using a score:
 ```{r, message=F, warning=F}
 library(ggplot2)
 
-plot <- aprovacao %>% 
+aprovacao %>% 
   mutate(score = otimo_bom - ruim) %>% 
   ggplot() +
   geom_line(aes(x = date, y = score, col = presidente)) +
@@ -100,6 +106,6 @@ plot <- aprovacao %>%
   geom_hline(yintercept =  0) + 
   theme_bw()
 
-plot
 ```
 
+![](./png/png_4_pres.png)
