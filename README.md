@@ -1,3 +1,3 @@
 # presidential_approval
 
-Presidential approval of Brazilian presidents
+Historical approval of Brazilian presidents
