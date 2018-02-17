@@ -1,4 +1,7 @@
 library(shiny)
+library(dplyr)
+library(ggplot2)
+library(plotly)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -9,16 +12,15 @@ ui <- fluidPage(
    # Sidebar with a slider input for number of bins 
    sidebarLayout(
       sidebarPanel(
-         sliderInput("bins",
-                     "Number of bins:",
-                     min = 1,
-                     max = 50,
-                     value = 30)
-      ),
-      
+        selectInput(inputId = "select",
+                    choices = c("Sarney", "Collor", "Itamar", "FHC", "Lula",
+                                "Dilma", "Temer"),
+                    label = "selecione",
+                    multiple = T
+      )),
       # Show a plot of the generated distribution
       mainPanel(
-         plotOutput("distPlot")
+         plotOutput("plot")
       )
    )
 )
@@ -26,13 +28,12 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
    
-   output$distPlot <- renderPlot({
-      # generate bins based on input$bins from ui.R
-      x    <- faithful[, 2] 
-      bins <- seq(min(x), max(x), length.out = input$bins + 1)
-      
-      # draw the histogram with the specified number of bins
-      hist(x, breaks = bins, col = 'darkgray', border = 'white')
+   output$plot <- renderPlot({
+     aprovacao %>% 
+       ggplot() +
+       geom_line(aes(x = date, y = otimo_bom, col = presidente)) +
+       scale_color_manual(values = c("#53868B", "#CD2626", "#0000EE", "#CDAD00", "#EE2C2C", "#8B6508", "#FFC125")) + 
+       theme_bw() 
    })
 }
 
