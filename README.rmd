@@ -15,17 +15,17 @@ Source: Datafolha. Complemented with IBOPE data in the first years of Sarney gov
 
 Variables:
 
-* presidente: name of president.
-* year
-* day: last day that respondents were interviewed.
-* month: month that respondents were interviewed.
-* otimo_bom: percentage that evaluate the government as "ótimo" (very good) and "bom" (good).
-* regular: percentage that evaluate the government as "regular".
-* ruim: percentage that evaluate the government as "ruim" (bad) or "péssimo" (very bad).
-* nsabe: don't know.
-* na: missing.
-* insitituto: source.
-* pergunta: indicates that answers were for the popularity question (with categorical values instead of a binary approval variable yes/no).
+* *presidente*: name of president.
+* *year*
+* *day*: last day that respondents were interviewed.
+* *month*: month that respondents were interviewed.
+* *otimo_bom*: percentage that evaluate the government as "ótimo" (very good) and "bom" (good).
+* *regular*: percentage that evaluate the government as "regular".
+* *ruim*: percentage that evaluate the government as "ruim" (bad) or "péssimo" (very bad).
+* *nsabe*: don't know.
+* *na*: missing.
+* *insitituto*: source.
+* *pergunta*: indicates that answers were for the popularity question (with categorical values instead of a binary approval variable yes/no).
 
 Last update: 02/18.
 
